@@ -48,6 +48,13 @@ p {
 	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
 }
 
+#name h4 {
+	font-size: 1.5em;
+	margin-left: 2px;
+	font-family: 'Lato', Helvetica, Arial, sans-serif;
+	color: #444;
+}
+
 #mainArea {
 	padding: 0 40px;
 }
