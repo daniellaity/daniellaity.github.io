@@ -22,6 +22,10 @@ p {
 	color: #444;
 }
 
+span { 
+	font-weight: bold; 
+}
+
 #cv {
 	width: 90%;
 	max-width: 800px;
