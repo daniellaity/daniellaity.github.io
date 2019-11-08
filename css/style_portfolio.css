@@ -7,6 +7,149 @@ body{
 	margin:0;
 }
 
+	 Object.defineProperty(t, "__esModule", {
+        value: !0
+    });
+    var r = n(3),
+        i = o(r),
+        a = n(95),
+        u = o(a),
+        c = n(88),
+        s = o(c),
+        l = n(89),
+        f = o(l),
+        d = n(57),
+        h = o(d),
+        p = function() {
+            function e(t) {
+                var n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+                (0, s.default)(this, e), this.rootNode = t, this.itemSelector = n.itemSelector, this.items = this.rootNode.querySelectorAll(this.itemSelector), this.loadMoreBtn = document.querySelector(n.loadMoreSelector), this.pageEndNode = document.querySelector(n.pageEndSelector), this.loadingSpinner = document.querySelector(n.loadingSpinnerSelector), this.renderCallback = n.renderCallback, this.isInfiniteScroll = n.isInfiniteScroll, this.debouncedInfiniteScrollHandler = (0, h.default)(this.infiniteScrollHandler, 200), this.boundDebouncedInfiniteScrollHandler = this.debouncedInfiniteScrollHandler.bind(this), this.boundLoadNextPage = this.loadNextPage.bind(this)
+            }
+            return (0, f.default)(e, [{
+                key: "bindEventListener",
+                value: function() {
+                    this.isInfiniteScroll ? window.addEventListener("scroll", this.boundDebouncedInfiniteScrollHandler) : this.loadMoreBtn && this.loadMoreBtn.addEventListener("click", this.boundLoadNextPage)
+                }
+            }, {
+                key: "requestNextPage",
+                value: function(e) {
+                    return new u.default(function(t, n) {
+                        var o = new XMLHttpRequest;
+                        o.onload = function() {
+                            t(o.response)
+                        }, o.open("GET", e, !0), o.responseType = "document", o.send()
+                    })
+                }
+            }, {
+                key: "getNextPageUrl",
+                value: function() {
+                    var e = this.rootNode.querySelector(this.itemSelector + ":last-child").getAttribute("data-offset"),
+                        t = window.location.href.toString(),
+                        n = "offset=" + e + "&format=main-content";
+                    n = t.indexOf("?") > -1 ? "&" + n : "?" + n;
+                    var o = t + n;
+                    return o
+                }
+            }, {
+                key: "infiniteScrollHandler",
+                value: function() {
+                    var e = this,
+                        t = window.innerHeight,
+                        n = this.pageEndNode.getBoundingClientRect().top,
+                        o = window.pageYOffset;
+                    if (o + t >= n + o) {
+                        this.loadingSpinner.classList.remove("hidden"), window.removeEventListener("scroll", this.boundDebouncedInfiniteScrollHandler);
+                        var r = this.getNextPageUrl();
+                        this.requestNextPage(r).then(function(t) {
+                            var n = (0, i.default)(t.querySelectorAll(e.itemSelector));
+                            n.forEach(function(t) {
+                                e.rootNode.appendChild(t)
+                            }), e.renderCallback(), e.loadingSpinner.classList.add("hidden"), e.rootNode.querySelector(e.itemSelector + "[data-last-page]") ? e.rootNode.classList.add("last-page") : window.addEventListener("scroll", e.boundDebouncedInfiniteScrollHandler)
+                        }).catch(function(e) {
+                            console.warn("The next page failed to load: " + e)
+                        })
+                    }
+                }
+            }, {
+                key: "loadNextPage",
+                value: function(e) {
+                    var t = this;
+                    e.preventDefault();
+                    var n = this.getNextPageUrl();
+                    this.requestNextPage(n).then(function(e) {
+                        var n = (0, i.default)(e.querySelectorAll(t.itemSelector));
+                        n.forEach(function(e) {
+                            t.rootNode.appendChild(e)
+                        }), t.renderCallback();
+                        var o = t.rootNode.querySelector(t.itemSelector + ":last-child").getAttribute("data-offset");
+                        t.loadMoreBtn && t.loadMoreBtn.setAttribute("href", "/?offset=" + o), t.rootNode.querySelector(t.itemSelector + "[data-last-page]") && (t.loadMoreBtn && t.loadMoreBtn.removeEventListener("click", t.boundLoadNextPage), t.rootNode.classList.add("last-page"))
+                    }).catch(function(e) {
+                        console.warn("The next page failed to load: " + e)
+                    })
+                }
+            }]), e
+        }();
+    t.default = p
+}, function(e, t, n) {
+    "use strict";
+    function o(e) {
+        return e && e.__esModule ? e : {
+            default: e
+        }
+    }
+    function r(e) {
+        var t = e.querySelector(".pie-wrapper"),
+            n = document.querySelector(".blog-item-banner-image img"),
+            o = "true" === u.Tweak.getValue("tweak-show-progress-indicator"),
+            r = e.querySelector(".pie--left"),
+            i = e.querySelector(".pie--right"),
+            c = e.querySelector(".mask--left"),
+            s = 0,
+            l = 0,
+            f = !1,
+            d = void 0,
+            h = function(e, t) {
+                "hide" === t ? e.classList.add("hide") : e.classList.remove("hide")
+            },
+            p = function(e, t, n, o) {
+                r.style.transform = "rotate(" + e + "deg)", i.style.transform = "rotate(" + t + "deg)", h(c, o), h(i, n)
+            },
+            v = function(e, n) {
+                t.classList.add("show"), s = n, s / e <= 1 ? (l = s / e * 360, s / e < .5 ? p(l, 0, "hide", "show") : p(180, l, "show", "hide")) : p(180, 360, "show", "hide")
+            },
+            g = function() {
+                return e.getBoundingClientRect().bottom + window.pageYOffset - window.innerHeight
+            },
+            m = function e(t) {
+                v(t, window.pageYOffset), f === !0 && window.requestAnimationFrame(function() {
+                    e(t)
+                })
+            },
+            y = function(e) {
+                f === !1 && (f = !0, m(e)), d && clearTimeout(d), d = setTimeout(function() {
+                    f = !1, setTimeout(function() {
+                        t.classList.remove("show")
+                    }, 1500)
+                }, 100)
+            },
+            w = function() {
+                var e = g();
+                window.addEventListener("scroll", function() {
+                    y(e)
+                })
+            },
+            b = (0, a.default)(w, 200);
+        o && (n ? n.addEventListener("load", w) : w(), window.addEventListener("resize", b))
+    }
+    Object.defineProperty(t, "__esModule", {
+        value: !0
+    });
+    var i = n(57),
+        a = o(i),
+        u = n(70);
+    t.default = r
+}
+
 .container{
 	width:80%;
 	margin:auto;
@@ -88,4 +231,6 @@ body{
 		width:100%;
 		float:none;
 	}
+
+
 }
