@@ -147,7 +147,7 @@ ul li::before {
 .categories li{
 	padding-bottom: 6px;
 	border-bottom:dotted 1px #333;
-	list-style-image: url('../images/check.jpg');
+	//list-style-image: url('../images/check.jpg');
 
 }
 
