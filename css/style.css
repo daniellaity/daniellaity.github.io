@@ -139,7 +139,7 @@ ul li::before {
   width: 20px;
   height: 20px;
   content: "";
-  background: url('../images/check.jpg');
+  background: url('../images/check.JPG');
   background-size:100%;
 
 }
@@ -147,7 +147,7 @@ ul li::before {
 .categories li{
 	padding-bottom: 6px;
 	border-bottom:dotted 1px #333;
-	//list-style-image: url('../images/check.jpg');
+	//list-style-image: url('../images/check.JPG');
 
 }
 
@@ -201,7 +201,7 @@ ul li::before {
 	border:1px solid #000;
 	margin-top: 30px;
 	position: relative;
-	background-image: url('../images/check.jpg');
+	background-image: url('../images/check.JPG');
 	background-repeat:no-repeat;
 	background-position:center top;
 	background-size: 40%;
