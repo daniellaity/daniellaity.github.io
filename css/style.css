@@ -136,6 +136,7 @@ a:visited{
 .categories li{
 	padding-bottom: 6px;
 	border-bottom:dotted 1px #333;
+	width: 2%;
 	list-style-image: url('../images/check.jpg');
 
 }
