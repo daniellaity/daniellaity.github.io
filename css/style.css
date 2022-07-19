@@ -133,6 +133,17 @@ a:visited{
 
 }
 
+ul li::before {
+  
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  content: "";
+  background: url('../images/check.jpg');
+  background-size:100%;
+
+}
+
 .categories li{
 	padding-bottom: 6px;
 	border-bottom:dotted 1px #333;
